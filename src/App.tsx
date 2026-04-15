@@ -599,7 +599,7 @@ const HomeScreen = ({
         </div>
       </section>
 
-      {/* Categories Grid - UPDATED TO RECTANGULAR CARDS */}
+      {/* Categories Grid - UPDATED TO SLIDER ON MOBILE */}
       <section>
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
@@ -608,12 +608,12 @@ const HomeScreen = ({
           </div>
           <ChevronRight size={24} className="text-primary cursor-pointer hover:translate-x-1 transition-transform" />
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="flex overflow-x-auto no-scrollbar gap-4 pb-4 md:grid md:grid-cols-3 lg:grid-cols-6 md:overflow-visible">
           {categories.map((cat) => (
             <div 
               key={cat.name} 
               onClick={() => onCategoryClick(cat.name)}
-              className="relative h-40 rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+              className="relative min-w-[160px] h-40 md:min-w-0 rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
             >
               <img 
                 src={cat.image} 
@@ -691,6 +691,29 @@ const HomeScreen = ({
         </div>
       </section>
 
+      {/* Middle Banners */}
+      <section className="grid grid-cols-2 gap-4 md:gap-6">
+        {middleBanners.map((banner) => (
+          <div 
+            key={banner.id}
+            onClick={() => banner.targetCategory && onBannerClick(banner.targetCategory)}
+            className="relative h-32 sm:h-48 md:h-64 rounded-2xl md:rounded-[2rem] overflow-hidden group cursor-pointer shadow-lg"
+          >
+            <img 
+              src={banner.image} 
+              alt={banner.title} 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-4 md:px-8 text-white text-right">
+              <h4 className="text-sm md:text-2xl font-black mb-1 md:mb-2 line-clamp-1">{banner.title}</h4>
+              <p className="text-[10px] md:text-sm opacity-80 mb-2 md:mb-4 line-clamp-1">{banner.subtitle}</p>
+              <button className="bg-white text-black px-3 md:px-6 py-1 md:py-2 rounded-full text-[8px] md:text-xs font-bold uppercase tracking-widest">{banner.cta}</button>
+            </div>
+          </div>
+        ))}
+      </section>
+
       {/* Trending Deals */}
       <section>
         <div className="flex items-center justify-between mb-8">
@@ -743,29 +766,6 @@ const HomeScreen = ({
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Middle Banners */}
-      <section className="grid grid-cols-2 gap-4 md:gap-6">
-        {middleBanners.map((banner) => (
-          <div 
-            key={banner.id}
-            onClick={() => banner.targetCategory && onBannerClick(banner.targetCategory)}
-            className="relative h-32 sm:h-48 md:h-64 rounded-2xl md:rounded-[2rem] overflow-hidden group cursor-pointer shadow-lg"
-          >
-            <img 
-              src={banner.image} 
-              alt={banner.title} 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-4 md:px-8 text-white text-right">
-              <h4 className="text-sm md:text-2xl font-black mb-1 md:mb-2 line-clamp-1">{banner.title}</h4>
-              <p className="text-[10px] md:text-sm opacity-80 mb-2 md:mb-4 line-clamp-1">{banner.subtitle}</p>
-              <button className="bg-white text-black px-3 md:px-6 py-1 md:py-2 rounded-full text-[8px] md:text-xs font-bold uppercase tracking-widest">{banner.cta}</button>
-            </div>
-          </div>
-        ))}
       </section>
 
       {/* Brands Section */}
@@ -1960,7 +1960,7 @@ const ProductDetailScreen = ({ product, onBack, onAddToCart, products, onProduct
   );
 };
 
-const CartScreen = ({ products, cart, setCart, currencyMode }: { products: Product[], cart: CartItem[], setCart: React.Dispatch<React.SetStateAction<CartItem[]>>, currencyMode: CurrencyMode, key?: React.Key }) => {
+const CartScreen = ({ products, cart, setCart, currencyMode, whatsappNumber }: { products: Product[], cart: CartItem[], setCart: React.Dispatch<React.SetStateAction<CartItem[]>>, currencyMode: CurrencyMode, whatsappNumber: string, key?: React.Key }) => {
   const cartProducts = cart.map(item => {
     const product = products.find(p => p.id === item.productId);
     return { ...product, quantity: item.quantity };
@@ -1983,6 +1983,32 @@ const CartScreen = ({ products, cart, setCart, currencyMode }: { products: Produ
 
   const removeItem = (productId: string) => {
     setCart(prev => prev.filter(item => item.productId !== productId));
+  };
+
+  const handleCheckout = () => {
+    const madTotal = total.toFixed(2);
+    const rialTotal = (total * 20).toLocaleString();
+    
+    let message = `*طلب جديد من المتجر*\n\n`;
+    message += `*تفاصيل المنتجات:*\n`;
+    
+    cartProducts.forEach((item, index) => {
+      const itemMad = (item.price * item.quantity).toFixed(2);
+      const itemRial = (item.price * item.quantity * 20).toLocaleString();
+      message += `${index + 1}. ${item.name}\n`;
+      message += `   الكمية: ${item.quantity}\n`;
+      message += `   السعر: ${itemMad} د.م. (${itemRial} ريال)\n\n`;
+    });
+    
+    message += `--------------------------\n`;
+    message += `*إجمالي الوحدات:* ${totalUnits} وحدة\n`;
+    message += `*المبلغ الإجمالي:* ${madTotal} د.م.\n`;
+    message += `*المبلغ بالريال:* ${rialTotal} ريال\n\n`;
+    message += `شكراً لتسوقكم معنا!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const cleanNumber = whatsappNumber.replace(/\D/g, '');
+    window.open(`https://wa.me/${cleanNumber}?text=${encodedMessage}`, '_blank');
   };
 
   if (cart.length === 0) {
@@ -2084,7 +2110,10 @@ const CartScreen = ({ products, cart, setCart, currencyMode }: { products: Produ
                 </div>
               </div>
             </div>
-            <button className="w-full mt-8 editorial-gradient text-white py-5 rounded-xl font-black text-lg flex items-center justify-center gap-3 active:scale-95 duration-200 shadow-xl shadow-primary/20">
+            <button 
+              onClick={handleCheckout}
+              className="w-full mt-8 editorial-gradient text-white py-5 rounded-xl font-black text-lg flex items-center justify-center gap-3 active:scale-95 duration-200 shadow-xl shadow-primary/20"
+            >
               <Send size={20} /> اطلب عبر واتساب
             </button>
           </div>
@@ -2112,6 +2141,10 @@ export default function App() {
   const [settings, setSettings] = useState<AppSettings>(INITIAL_SETTINGS);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [currencyMode, setCurrencyMode] = useState<CurrencyMode>('MAD');
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [screen, selectedProduct, initialCategory, selectedBrandId]);
 
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
@@ -2219,7 +2252,7 @@ export default function App() {
             />
           )}
           {screen === 'cart' && (
-            <CartScreen key="cart" products={products} cart={cart} setCart={setCart} currencyMode={currencyMode} />
+            <CartScreen key="cart" products={products} cart={cart} setCart={setCart} currencyMode={currencyMode} whatsappNumber={settings.whatsappNumber} />
           )}
           {screen === 'admin' && (
             <AdminScreen 
