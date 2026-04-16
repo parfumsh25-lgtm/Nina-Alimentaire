@@ -119,6 +119,8 @@ interface Product {
   rating: number;
   reviews: number;
   isHotSale?: boolean;
+  isFeatured?: boolean;
+  isAvailable?: boolean;
   brandId?: number;
 }
 
@@ -192,7 +194,9 @@ const PRODUCTS: Product[] = [
     sku: 'TECH-4429',
     rating: 4.8,
     reviews: 120,
-    isHotSale: true
+    isHotSale: true,
+    isFeatured: true,
+    isAvailable: true
   },
   {
     id: '2',
@@ -206,7 +210,9 @@ const PRODUCTS: Product[] = [
     sku: 'SHOE-9921',
     rating: 4.9,
     reviews: 84,
-    isHotSale: true
+    isHotSale: true,
+    isFeatured: true,
+    isAvailable: true
   },
   {
     id: '3',
@@ -220,7 +226,9 @@ const PRODUCTS: Product[] = [
     sku: 'WATCH-401',
     rating: 4.5,
     reviews: 210,
-    isHotSale: true
+    isHotSale: true,
+    isFeatured: true,
+    isAvailable: true
   },
   {
     id: '4',
@@ -233,7 +241,9 @@ const PRODUCTS: Product[] = [
     subcategory: 'كاميرات',
     sku: 'CAM-112',
     rating: 5.0,
-    reviews: 42
+    reviews: 42,
+    isFeatured: true,
+    isAvailable: true
   },
   {
     id: '5',
@@ -246,7 +256,9 @@ const PRODUCTS: Product[] = [
     subcategory: 'رجالي',
     sku: 'BAG-772',
     rating: 4.7,
-    reviews: 65
+    reviews: 65,
+    isFeatured: true,
+    isAvailable: true
   },
   {
     id: '6',
@@ -259,7 +271,9 @@ const PRODUCTS: Product[] = [
     subcategory: 'إضاءة',
     sku: 'HOME-102',
     rating: 4.6,
-    reviews: 89
+    reviews: 89,
+    isFeatured: true,
+    isAvailable: false
   }
 ];
 
@@ -268,13 +282,13 @@ const CATEGORIES: Category[] = [
     name: 'البقالة', 
     image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200', 
     subcategories: [
-      { name: 'الشاي الصحراوي', image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=200' },
-      { name: 'معلبات السمك والخضر', image: 'https://images.unsplash.com/photo-1584263347416-85a18a45245a?auto=format&fit=crop&q=80&w=200' },
-      { name: 'الدقيق والخميرة', image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=200' },
-      { name: 'الزيت والخل', image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=200' },
-      { name: 'الارز والاطعمة النشوية', image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=200' },
-      { name: 'الكسكس والسميـــد', image: 'https://images.unsplash.com/photo-1541518763669-27fef04b14ea?auto=format&fit=crop&q=80&w=200' },
-      { name: 'العسل والمربى', image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&q=80&w=200' },
+      { name: 'الشاي الصحراوي', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgenQvrXks8YvaoNxvpTbhnZhP0TYNHvg2CIhLDaUXsUs9pFdVLTQlNQlNubKwUkDro_bULzUNzrNizo05AgCMLkRoSiVtsMExFVMOxr9BPkjLu4adqV0w53-g_RCs_9o7F_W2hbM8O8tPobMdAAMRBLHZeSQevnjGOVTAFK6AB7GzXAHBCzMVAu-2SiGQ/w400-h201/Eddahani-Cat19.png' },
+      { name: 'معلبات السمك والخضر', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhQwYsc1_NJ31k-yQG6-S6qQFKuIOrCjdTBEwhL-HH22k4speWhiK7Gd6tG682R7AHFuyI6rMDlW7MEM_C8Tb0j0AIFdiJ1GHF21jM8IAaz_p51biw2ddU1XE-P8Q4RXg9vrSoVpltky1qZkwf-ljln0XNifTBTJvdSZg_dBxiMWeYW8qKKcdKxjwmn1Xk/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'الدقيق والخميرة', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsE9rei2PS8ud5jAHVjg9yyh7hLOZ-7oHNQC6F3VvDSqv7caFnrA6RLP_qM6svCPrhHn9Kv-Ctfnu5X3q2TqP_eIUvnk9-ht84JvgZq_joW9f1O3bTEshwxUTwydgrf5QPbj9SFS_W2xGuSQOFpfcrknlb4rPGZSMTQe3tinQLh0kbec1Gt9Zujoi8Df8/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'الزيت والخل', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgkBvMi7AnN_xm6rZTT8eBYs0KGdtMM4JJi-Ly6ZPpt9-8Qshrcfg0KQ2q62WTptt_hYHhWmGk5yGHtiJGLB-6Pb-USUNAaAxp5aQ-SCBAG1T3yWtE3z64S9hrfS6ByTSJHj2q3WiqGMrYzaEYgWUrT-Gv6iFndQMnBcYVOUHpp09EGJX9FHW5ScDmLb_I/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'الارز والاطعمة النشوية', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFoLjcaf5JQW369KcX4YXbgT_GOGYgQh1IwDuarnUWJYxr-VgSqXOft-ZT3fNMiZpeiLrmVs6sPfOov2ON7iQ1xdrkN9GBw0DFYdf8uuKlGbw6n3KY8RBt7_VqY6U6iyaScWtZpkJ1lgblNtDhvtkUXnpOdVkyCTLlzeNAC5ObbUuhbL5PE3P6mOtqqsw/w400-h201/Eddahani-Cat19.png' },
+      { name: 'الكسكس والسميـــد', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhxeryJiv5l5oULypFqOO0WIc0sXmN2KIF9PrcRIbFTVErVMaDtCcKSIfrg32JSh_-wmkJkAbOQqwCsfkJdGWzdYfdYNaEqoUoHxekDttmSQlUwQcxvXdJ4cxAul9fbbppA2EKPcMzDMqmmDR1Ys5yfqp5jvRo4XWiz9uqfBMnTOcT-TMFX9LlZAkHrHTI/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'العسل والمربى', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYr2HzVdNZZ6NLeZRmcZWFxHqNIuEUBhNNiPg_EUxopJMl5ZznTIopmnpAZDA0U_yXQqzI5i2xfrZvlgfAoEdjMMBg7ECVrDkhPt9L-fQ-TCv_400ieN4a8Ul2WKUpPHGvOQNvIHmMi8KPA-UtnzlMDC9oJcbRkZg9SHAOTmdrS-bOJdhcVWtibEuWKvU/w400-h201/Eddahani-Cat19-Recovered.png' },
       { name: 'الملح والبهارات', image: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&q=80&w=200' }
     ] 
   },
@@ -599,38 +613,6 @@ const HomeScreen = ({
         </div>
       </section>
 
-      {/* Categories Grid - UPDATED TO SLIDER ON MOBILE */}
-      <section>
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-8 bg-primary rounded-full" />
-            <h3 className="text-3xl font-black font-headline tracking-tight text-on-surface">تسوق حسب الفئة</h3>
-          </div>
-          <ChevronRight size={24} className="text-primary cursor-pointer hover:translate-x-1 transition-transform" />
-        </div>
-        <div className="flex overflow-x-auto no-scrollbar gap-4 pb-4 md:grid md:grid-cols-3 lg:grid-cols-6 md:overflow-visible">
-          {categories.map((cat) => (
-            <div 
-              key={cat.name} 
-              onClick={() => onCategoryClick(cat.name)}
-              className="relative min-w-[160px] h-40 md:min-w-0 rounded-3xl overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
-            >
-              <img 
-                src={cat.image} 
-                alt={cat.name} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              <div className="absolute bottom-4 right-4 text-white text-right">
-                <span className="text-xs font-bold uppercase tracking-widest opacity-80">استكشف</span>
-                <h4 className="text-lg font-black font-headline">{cat.name}</h4>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Flash Sale */}
       <section className="bg-red-50 rounded-[2.5rem] p-8 border border-red-100">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -655,7 +637,10 @@ const HomeScreen = ({
             >
               <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-50 mb-4">
                 <img 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                  className={cn(
+                    "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500",
+                    product.isAvailable === false && "grayscale opacity-50"
+                  )}
                   src={product.image} 
                   alt={product.name}
                   referrerPolicy="no-referrer"
@@ -663,6 +648,11 @@ const HomeScreen = ({
                 <div className="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-black px-2 py-1 rounded-lg">
                   خصم كبير
                 </div>
+                {product.isAvailable === false && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                    <span className="bg-black text-white text-[10px] font-bold px-3 py-1 rounded-full">غير متوفر حالياً</span>
+                  </div>
+                )}
               </div>
               <h4 className="font-bold text-sm text-on-surface truncate mb-2">{product.name}</h4>
               <div className="flex items-center justify-between mb-4">
@@ -714,24 +704,27 @@ const HomeScreen = ({
         ))}
       </section>
 
-      {/* Trending Deals */}
+      {/* Featured Products */}
       <section>
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
             <div className="w-2 h-8 bg-primary rounded-full" />
-            <h3 className="text-3xl font-black font-headline tracking-tight text-on-surface">وصل حديثاً</h3>
+            <h3 className="text-3xl font-black font-headline tracking-tight text-on-surface">منتجات مختارة</h3>
           </div>
           <span className="text-xs font-bold text-primary tracking-widest uppercase cursor-pointer hover:underline">مشاهدة المزيد</span>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {products.filter(p => p.isFeatured).map((product) => (
             <div 
               key={product.id}
               className="bg-surface-container rounded-[2rem] p-4 shadow-sm group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-primary/10"
             >
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
                 <img 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                  className={cn(
+                    "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
+                    product.isAvailable === false && "grayscale opacity-50"
+                  )}
                   src={product.image} 
                   alt={product.name}
                   referrerPolicy="no-referrer"
@@ -739,6 +732,11 @@ const HomeScreen = ({
                 <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">
                   الحد الأدنى: {product.moq}
                 </div>
+                {product.isAvailable === false && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                    <span className="bg-black text-white text-[10px] font-bold px-3 py-1 rounded-full">غير متوفر حالياً</span>
+                  </div>
+                )}
               </div>
               <div className="space-y-4">
                 <div className="space-y-1">
@@ -750,8 +748,12 @@ const HomeScreen = ({
                 </div>
                 <div className="flex gap-2">
                   <button 
+                    disabled={product.isAvailable === false}
                     onClick={() => onAddToCart(product.id, product.moq)}
-                    className="flex-1 bg-primary text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary-dark transition-colors flex items-center justify-center gap-1"
+                    className={cn(
+                      "flex-1 bg-primary text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary-dark transition-colors flex items-center justify-center gap-1",
+                      product.isAvailable === false && "bg-slate-300 cursor-not-allowed"
+                    )}
                   >
                     <Plus size={14} /> شراء
                   </button>
@@ -842,40 +844,52 @@ const BrandProductsScreen = ({
               key={product.id}
               className="bg-surface-container rounded-[2rem] p-4 shadow-sm group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-primary/10"
             >
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
-                <img 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                  src={product.image} 
-                  alt={product.name}
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">
-                  الحد الأدنى: {product.moq}
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
+                  <img 
+                    className={cn(
+                      "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
+                      product.isAvailable === false && "grayscale opacity-50"
+                    )}
+                    src={product.image} 
+                    alt={product.name}
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">
+                    الحد الأدنى: {product.moq}
+                  </div>
+                  {product.isAvailable === false && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                      <span className="bg-black text-white text-[10px] font-bold px-3 py-1 rounded-full">غير متوفر حالياً</span>
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{product.category}</span>
-                  <h4 className="font-bold text-sm leading-tight text-on-surface line-clamp-2 h-10">{product.name}</h4>
-                  <div className="flex items-center gap-2">
-                    <span className="text-primary font-black text-lg">{formatPrice(product.price, currencyMode)}</span>
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{product.category}</span>
+                    <h4 className="font-bold text-sm leading-tight text-on-surface line-clamp-2 h-10">{product.name}</h4>
+                    <div className="flex items-center gap-2">
+                      <span className="text-primary font-black text-lg">{formatPrice(product.price, currencyMode)}</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <button 
+                      disabled={product.isAvailable === false}
+                      onClick={() => onAddToCart(product.id, product.moq)}
+                      className={cn(
+                        "flex-1 bg-primary text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary-dark transition-colors flex items-center justify-center gap-1",
+                        product.isAvailable === false && "bg-slate-300 cursor-not-allowed"
+                      )}
+                    >
+                      <Plus size={14} /> شراء
+                    </button>
+                    <button 
+                      onClick={() => onProductClick(product)}
+                      className="w-10 h-10 bg-white text-primary rounded-xl flex items-center justify-center hover:bg-primary/5 transition-colors border border-primary/10"
+                    >
+                      <Eye size={18} />
+                    </button>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <button 
-                    onClick={() => onAddToCart(product.id, product.moq)}
-                    className="flex-1 bg-primary text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary-dark transition-colors flex items-center justify-center gap-1"
-                  >
-                    <Plus size={14} /> شراء
-                  </button>
-                  <button 
-                    onClick={() => onProductClick(product)}
-                    className="w-10 h-10 bg-white text-primary rounded-xl flex items-center justify-center hover:bg-primary/5 transition-colors border border-primary/10"
-                  >
-                    <Eye size={18} />
-                  </button>
-                </div>
-              </div>
             </div>
           ))}
         </div>
@@ -1033,40 +1047,52 @@ const CategoriesScreen = ({
                   key={product.id}
                   className="bg-surface-container rounded-[2rem] p-4 shadow-sm group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-primary/10"
                 >
-                  <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
-                    <img 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                      src={product.image} 
-                      alt={product.name}
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">
-                      الحد الأدنى: {product.moq}
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
+                  <img 
+                    className={cn(
+                      "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
+                      product.isAvailable === false && "grayscale opacity-50"
+                    )}
+                    src={product.image} 
+                    alt={product.name}
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">
+                    الحد الأدنى: {product.moq}
+                  </div>
+                  {product.isAvailable === false && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                      <span className="bg-black text-white text-[10px] font-bold px-3 py-1 rounded-full">غير متوفر حالياً</span>
+                    </div>
+                  )}
+                </div>
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{product.subcategory || selectedCategory.name}</span>
+                    <h4 className="font-bold text-sm leading-tight text-on-surface line-clamp-2 h-10">{product.name}</h4>
+                    <div className="flex items-center gap-2">
+                      <span className="text-primary font-black text-lg">{formatPrice(product.price, currencyMode)}</span>
                     </div>
                   </div>
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{product.subcategory || selectedCategory.name}</span>
-                      <h4 className="font-bold text-sm leading-tight text-on-surface line-clamp-2 h-10">{product.name}</h4>
-                      <div className="flex items-center gap-2">
-                        <span className="text-primary font-black text-lg">{formatPrice(product.price, currencyMode)}</span>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <button 
-                        onClick={() => onAddToCart(product.id, product.moq)}
-                        className="flex-1 bg-primary text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary-dark transition-colors flex items-center justify-center gap-1"
-                      >
-                        <Plus size={14} /> شراء
-                      </button>
-                      <button 
-                        onClick={() => onProductClick(product)}
-                        className="w-10 h-10 bg-white text-primary rounded-xl flex items-center justify-center hover:bg-primary/5 transition-colors border border-primary/10"
-                      >
-                        <Eye size={18} />
-                      </button>
-                    </div>
+                  <div className="flex gap-2">
+                    <button 
+                      disabled={product.isAvailable === false}
+                      onClick={() => onAddToCart(product.id, product.moq)}
+                      className={cn(
+                        "flex-1 bg-primary text-white py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary-dark transition-colors flex items-center justify-center gap-1",
+                        product.isAvailable === false && "bg-slate-300 cursor-not-allowed"
+                      )}
+                    >
+                      <Plus size={14} /> شراء
+                    </button>
+                    <button 
+                      onClick={() => onProductClick(product)}
+                      className="w-10 h-10 bg-white text-primary rounded-xl flex items-center justify-center hover:bg-primary/5 transition-colors border border-primary/10"
+                    >
+                      <Eye size={18} />
+                    </button>
                   </div>
+                </div>
                 </div>
               ))}
             </div>
@@ -1337,6 +1363,14 @@ const AdminScreen = ({
                   <div>
                     <h4 className="font-bold text-on-surface">{p.name}</h4>
                     <p className="text-xs text-on-surface-variant">{p.category} {p.subcategory && `> ${p.subcategory}`} • {p.sku}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      {p.isHotSale && <span className="bg-red-100 text-red-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Hot</span>}
+                      {p.isFeatured && <span className="bg-blue-100 text-blue-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Featured</span>}
+                      {p.isAvailable === false ? 
+                        <span className="bg-slate-200 text-slate-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Unavailable</span> :
+                        <span className="bg-green-100 text-green-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Available</span>
+                      }
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-6">
@@ -1542,15 +1576,40 @@ const AdminScreen = ({
                     {brandLogos.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
                   </select>
                 </div>
-                <div className="md:col-span-2 flex items-center gap-3 bg-surface-container p-4 rounded-2xl">
-                  <input 
-                    type="checkbox" 
-                    id="isHotSale"
-                    checked={editingProduct.isHotSale} 
-                    onChange={e => setEditingProduct({...editingProduct, isHotSale: e.target.checked})}
-                    className="w-5 h-5 rounded text-primary focus:ring-primary"
-                  />
-                  <label htmlFor="isHotSale" className="font-bold text-on-surface">عرض في "عروض ساخنة" على الصفحة الرئيسية</label>
+                <div className="md:col-span-2 space-y-4 bg-surface-container p-6 rounded-3xl">
+                  <div className="flex items-center gap-3">
+                    <input 
+                      type="checkbox" 
+                      id="isHotSale"
+                      checked={editingProduct.isHotSale} 
+                      onChange={e => setEditingProduct({...editingProduct, isHotSale: e.target.checked})}
+                      className="w-5 h-5 rounded text-primary focus:ring-primary"
+                    />
+                    <label htmlFor="isHotSale" className="font-bold text-on-surface">عرض في "عروض ساخنة" على الصفحة الرئيسية</label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input 
+                      type="checkbox" 
+                      id="isFeatured"
+                      checked={editingProduct.isFeatured} 
+                      onChange={e => setEditingProduct({...editingProduct, isFeatured: e.target.checked})}
+                      className="w-5 h-5 rounded text-primary focus:ring-primary"
+                    />
+                    <label htmlFor="isFeatured" className="font-bold text-on-surface">عرض في المنتجات المختارة على الصفحة الرئيسية</label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input 
+                      type="checkbox" 
+                      id="isAvailable"
+                      checked={editingProduct.isAvailable !== false} 
+                      onChange={e => setEditingProduct({...editingProduct, isAvailable: e.target.checked})}
+                      className="w-5 h-5 rounded text-primary focus:ring-primary"
+                    />
+                    <label htmlFor="isAvailable" className="font-bold text-on-surface">المنتج متوفر للطلب</label>
+                  </div>
+                  {editingProduct.isAvailable === false && (
+                    <p className="text-xs text-red-500 font-bold mr-8">سيظهر المنتج كـ "غير متوفر حالياً" حتى الدفعة القادمة</p>
+                  )}
                 </div>
               </div>
               <div className="flex gap-4 pt-6">
@@ -1862,23 +1921,35 @@ const ProductDetailScreen = ({ product, onBack, onAddToCart, products, onProduct
           <div className="flex flex-col gap-2">
             <label className="text-sm font-bold text-on-surface">محدد الكمية</label>
             <p className="text-xs text-on-surface-variant">يجب أن يكون أكبر من أو يساوي الحد الأدنى للطلب ({product.moq})</p>
+            {product.isAvailable === false && (
+              <p className="text-sm font-black text-red-600 mt-2">عذراً، هذا المنتج غير متوفر حالياً حتى الدفعة القادمة</p>
+            )}
           </div>
           <div className="flex items-center bg-surface-container-high rounded-full p-1 self-start md:self-auto">
             <button 
+              disabled={product.isAvailable === false}
               onClick={() => setQty(Math.max(product.moq, qty - 1))}
-              className="w-12 h-12 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
+              className={cn(
+                "w-12 h-12 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors",
+                product.isAvailable === false && "opacity-30 cursor-not-allowed"
+              )}
             >
               <Minus size={20} />
             </button>
             <input 
+              disabled={product.isAvailable === false}
               className="w-16 bg-transparent border-none text-center font-bold text-lg focus:ring-0" 
               type="number" 
               value={qty}
               onChange={(e) => setQty(Math.max(product.moq, parseInt(e.target.value) || product.moq))}
             />
             <button 
+              disabled={product.isAvailable === false}
               onClick={() => setQty(qty + 1)}
-              className="w-12 h-12 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
+              className={cn(
+                "w-12 h-12 flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors",
+                product.isAvailable === false && "opacity-30 cursor-not-allowed"
+              )}
             >
               <Plus size={20} />
             </button>
@@ -1949,11 +2020,15 @@ const ProductDetailScreen = ({ product, onBack, onAddToCart, products, onProduct
           <span className="text-xl font-black text-on-surface">{formatPrice(product.price * qty, currencyMode)}</span>
         </div>
         <button 
+          disabled={product.isAvailable === false}
           onClick={() => onAddToCart(product.id, qty)}
-          className="flex-1 max-w-xs editorial-gradient text-white py-4 rounded-xl font-headline font-bold text-lg active:scale-95 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+          className={cn(
+            "flex-1 max-w-xs editorial-gradient text-white py-4 rounded-xl font-headline font-bold text-lg active:scale-95 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2",
+            product.isAvailable === false && "bg-slate-300 from-slate-300 to-slate-400 cursor-not-allowed shadow-none"
+          )}
         >
           <ShoppingCart size={20} fill="currentColor" />
-          أضف إلى السلة
+          {product.isAvailable === false ? 'غير متوفر حالياً' : 'أضف إلى السلة'}
         </button>
       </footer>
     </motion.div>
