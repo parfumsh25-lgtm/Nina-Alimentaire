@@ -289,17 +289,16 @@ const CATEGORIES: Category[] = [
       { name: 'الارز والاطعمة النشوية', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFoLjcaf5JQW369KcX4YXbgT_GOGYgQh1IwDuarnUWJYxr-VgSqXOft-ZT3fNMiZpeiLrmVs6sPfOov2ON7iQ1xdrkN9GBw0DFYdf8uuKlGbw6n3KY8RBt7_VqY6U6iyaScWtZpkJ1lgblNtDhvtkUXnpOdVkyCTLlzeNAC5ObbUuhbL5PE3P6mOtqqsw/w400-h201/Eddahani-Cat19.png' },
       { name: 'الكسكس والسميـــد', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhxeryJiv5l5oULypFqOO0WIc0sXmN2KIF9PrcRIbFTVErVMaDtCcKSIfrg32JSh_-wmkJkAbOQqwCsfkJdGWzdYfdYNaEqoUoHxekDttmSQlUwQcxvXdJ4cxAul9fbbppA2EKPcMzDMqmmDR1Ys5yfqp5jvRo4XWiz9uqfBMnTOcT-TMFX9LlZAkHrHTI/w400-h201/Eddahani-Cat19-Recovered.png' },
       { name: 'العسل والمربى', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYr2HzVdNZZ6NLeZRmcZWFxHqNIuEUBhNNiPg_EUxopJMl5ZznTIopmnpAZDA0U_yXQqzI5i2xfrZvlgfAoEdjMMBg7ECVrDkhPt9L-fQ-TCv_400ieN4a8Ul2WKUpPHGvOQNvIHmMi8KPA-UtnzlMDC9oJcbRkZg9SHAOTmdrS-bOJdhcVWtibEuWKvU/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'السكر والقهوة', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhspDtKwf9bEKQRjVgPD7mX30A6gzDBqcTMpHJkEii-JVJTnLMSvYyt3rUjGMuuCQbtlhg-rxGjmQLzQ6O7tQDB1UfOaa3A1J9Z4FLMzA_ivXPuzATDrlp6xMGgTmnQOZi8HxgY-YsBVCuKKdgy3eUOKSuMVhbddXguWu_7cVRXbjV6bDxuNLGBn7c33xI/w400-h201/Eddahani-Cat19-Recovered.png' },
       { name: 'الملح والبهارات', image: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&q=80&w=200' }
     ] 
   },
   {
-    name: 'الحليب والاجبان',
+    name: 'العصائر والاجبان',
     image: 'https://images.unsplash.com/photo-1550583724-125581f77833?auto=format&fit=crop&q=80&w=200',
     subcategories: [
       { name: 'فرمـــــــاج', image: 'https://images.unsplash.com/photo-1486297678162-ad249fa5773c?auto=format&fit=crop&q=80&w=200' },
-      { name: 'الحليب', image: 'https://images.unsplash.com/photo-1563636619-e91000f88fca?auto=format&fit=crop&q=80&w=200' },
-      { name: 'ياغورت والعصائر', image: 'https://images.unsplash.com/photo-1571151705823-649089993333?auto=format&fit=crop&q=80&w=200' },
-      { name: 'القشدة الطرية', image: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&q=80&w=200' },
+      { name: 'العصائر', image: 'https://images.unsplash.com/photo-1563636619-e91000f88fca?auto=format&fit=crop&q=80&w=200' },
       { name: 'زبدة والسمن', image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&q=80&w=200' }
     ]
   },
@@ -614,7 +613,7 @@ const HomeScreen = ({
       </section>
 
       {/* Flash Sale */}
-      <section className="bg-red-50 rounded-[2.5rem] p-8 border border-red-100">
+      <section id="special-offers" className="bg-red-50 rounded-[2.5rem] p-8 border border-red-100">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div className="flex items-center gap-4">
             <div className="bg-red-600 text-white p-3 rounded-2xl shadow-lg shadow-red-200">
@@ -705,7 +704,7 @@ const HomeScreen = ({
       </section>
 
       {/* Featured Products */}
-      <section>
+      <section id="new-arrivals">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
             <div className="w-2 h-8 bg-primary rounded-full" />
@@ -2203,6 +2202,8 @@ const CartScreen = ({ products, cart, setCart, currencyMode, whatsappNumber }: {
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
   const [selectedBrandId, setSelectedBrandId] = useState<number | null>(null);
@@ -2257,6 +2258,17 @@ export default function App() {
     setInitialCategory(undefined);
   };
 
+  const scrollToSection = (id: string) => {
+    setIsMenuOpen(false);
+    setScreen('home');
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
   return (
     <div className="min-h-screen bg-surface">
       <TopAppBar 
@@ -2271,9 +2283,143 @@ export default function App() {
         logo={settings.logo}
         cartCount={cart.length}
         onCartClick={() => setScreen('cart')}
+        onMenuClick={() => setIsMenuOpen(true)}
         currencyMode={currencyMode}
         onToggleCurrency={() => setCurrencyMode(prev => prev === 'MAD' ? 'RIAL' : 'MAD')}
       />
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60]"
+            />
+            <motion.div 
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-white z-[70] shadow-2xl flex flex-col"
+            >
+              <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+                <h2 className="text-2xl font-black font-headline text-primary">القائمة</h2>
+                <button onClick={() => setIsMenuOpen(false)} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                  <ArrowLeft size={24} />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-8 overflow-y-auto flex-grow">
+                {/* Search Bar in Menu */}
+                <div className="relative">
+                  <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                  <input 
+                    type="text"
+                    placeholder="ابحث عن منتج..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-slate-50 border-none rounded-2xl py-4 pr-12 pl-4 focus:ring-2 focus:ring-primary/20 outline-none font-medium text-right"
+                    dir="rtl"
+                  />
+                </div>
+
+                {searchQuery && (
+                  <div className="space-y-4">
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2 text-right">نتائج البحث</h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {products
+                        .filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.category.toLowerCase().includes(searchQuery.toLowerCase()))
+                        .slice(0, 5)
+                        .map(p => (
+                          <button 
+                            key={p.id}
+                            onClick={() => { handleProductClick(p); setIsMenuOpen(false); setSearchQuery(''); }}
+                            className="flex items-center justify-end gap-3 p-2 rounded-xl hover:bg-slate-50 transition-all text-right"
+                          >
+                            <div className="flex-grow">
+                              <h4 className="text-sm font-bold text-on-surface line-clamp-1">{p.name}</h4>
+                              <p className="text-[10px] text-primary font-black">{formatPrice(p.price, currencyMode)}</p>
+                            </div>
+                            <img src={p.image} alt="" className="w-12 h-12 rounded-lg object-cover" referrerPolicy="no-referrer" />
+                          </button>
+                        ))
+                      }
+                      {products.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+                        <p className="text-xs text-slate-400 text-center py-4">لم يتم العثور على نتائج</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2 text-right">روابط سريعة</h3>
+                  <div className="grid grid-cols-1 gap-2">
+                    <button 
+                      onClick={() => { setScreen('home'); setIsMenuOpen(false); }}
+                      className="flex items-center justify-end gap-4 p-4 rounded-2xl hover:bg-primary/5 text-on-surface font-bold transition-all group"
+                    >
+                      <span>الرئيسية</span>
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <HomeIcon size={20} />
+                      </div>
+                    </button>
+                    <button 
+                      onClick={() => scrollToSection('new-arrivals')}
+                      className="flex items-center justify-end gap-4 p-4 rounded-2xl hover:bg-primary/5 text-on-surface font-bold transition-all group"
+                    >
+                      <span>وصل حديثاً</span>
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <TrendingUp size={20} />
+                      </div>
+                    </button>
+                    <button 
+                      onClick={() => scrollToSection('special-offers')}
+                      className="flex items-center justify-end gap-4 p-4 rounded-2xl hover:bg-primary/5 text-on-surface font-bold transition-all group"
+                    >
+                      <span>عروض خاصة</span>
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <Plus size={20} />
+                      </div>
+                    </button>
+                    <button 
+                      onClick={() => { setScreen('categories'); setIsMenuOpen(false); }}
+                      className="flex items-center justify-end gap-4 p-4 rounded-2xl hover:bg-primary/5 text-on-surface font-bold transition-all group"
+                    >
+                      <span>تصفح الفئات</span>
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <Grid size={20} />
+                      </div>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2 text-right">تواصل معنا</h3>
+                  <div className="bg-slate-50 p-6 rounded-[2rem] space-y-4 text-right">
+                    <p className="text-sm text-slate-600 leading-relaxed">هل لديك أي استفسار؟ نحن هنا لمساعدتك في طلبات الجملة.</p>
+                    <button 
+                      onClick={() => window.open(`https://wa.me/${settings.whatsappNumber.replace(/\D/g, '')}`, '_blank')}
+                      className="w-full bg-[#25D366] text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-green-200"
+                    >
+                      <Send size={18} /> واتساب مباشر
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 border-t border-slate-100 bg-slate-50/50">
+                <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-widest">
+                  <span>© 2026 نينا بزار</span>
+                  <span>v2.4.0</span>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
       
       <main className="pt-20 pb-32 px-4 max-w-5xl mx-auto">
         <AnimatePresence mode="wait">
