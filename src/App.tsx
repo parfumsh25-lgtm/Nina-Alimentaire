@@ -35,7 +35,9 @@ import {
   MoreHorizontal,
   Send,
   Eye,
-  Coins
+  Coins,
+  Maximize2,
+  X
 } from 'lucide-react';
 import { cn } from './lib/utils';
 
@@ -120,6 +122,7 @@ interface Product {
   reviews: number;
   isHotSale?: boolean;
   isFeatured?: boolean;
+  isBestSeller?: boolean;
   isAvailable?: boolean;
   brandId?: number;
 }
@@ -295,21 +298,21 @@ const CATEGORIES: Category[] = [
   },
   {
     name: 'العصائر والاجبان',
-    image: 'https://images.unsplash.com/photo-1550583724-125581f77833?auto=format&fit=crop&q=80&w=200',
+    image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiV2nWYgPXDwJ1R39uQkcWP41RqandyqitiYgx2CbvBTKuH5ICT1Q4HOin9u27cmAXtJod-A_cDe4VgvUUtpmldEwlJ8-4ytTYIXGgs8lWDw1V8eSmPtk5sATpOpKEn4VfUQ8Xohj7NvBkGIxR3giyga02kpilL_dCUXabw3f3JvmMkYyoClZ2n8BILcjk/w400-h201/Eddahani-Cat19-Recovered.png',
     subcategories: [
-      { name: 'فرمـــــــاج', image: 'https://images.unsplash.com/photo-1486297678162-ad249fa5773c?auto=format&fit=crop&q=80&w=200' },
-      { name: 'العصائر', image: 'https://images.unsplash.com/photo-1563636619-e91000f88fca?auto=format&fit=crop&q=80&w=200' },
+      { name: 'فرمـــــــاج', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjftZC8y7yzLc9-WPfjZKrMZdQd2Gacsq-eA8qtzqbKk5CP9LjqCg8FQ1hmEyt2wEdFXiQSEBCobgRfKSfNbN90qQr4jqiYkRLaISUQdFLuUO52sr6bjr3PJeUB7ZUryWiqDrCZfJoUEpD6_MpvdRHFzhDOpInfs3Wv4caQR_zw__y3TbqAM-pTnCxPeak/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'العصائر', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh71dL200RBUZpEfUWBMDl4OrTXiakO0WWbbQxhYwlHgS9qryMFuG7R-cU6oUX6VwsTQf0h8v_gKAi4m1tiMKUOFXZtuLmbeYF2IOH9_yMeHSvMcNlLksS9SuXq0TyxFhPyStFnskPbjJ0bg4egwRUd-7uKv1auLrPQtUgy7FtPrNRpZhjzUpHZIBjH9c4/w400-h201/Eddahani-Cat19-Recovered.png' },
       { name: 'زبدة والسمن', image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&q=80&w=200' }
     ]
   },
   {
     name: 'الحلويات والبسكويت',
-    image: 'https://images.unsplash.com/photo-1559181567-c3190ca9959b?auto=format&fit=crop&q=80&w=200',
+    image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhzriaLMxh8c3LnOWpGJpyI9Lvb_WlXiU1p0iyiLJeoYp-6UBE6p9OVkftxxQ2QpmV1k_RHiqyzc5oq61Q_KZfr2Pv3y05V1j_F-uzvBZofmo_CRoaow4q0Bakz2EradfeYoSTKNXc9zJpsHM8fhGB9B653S18eOP4qWsdIpObwp8aYXNPXP_81xMxu_Go/w400-h201/Eddahani-Cat19-Recovered.png',
     subcategories: [
-      { name: 'البسكويت', image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&q=80&w=200' },
-      { name: 'حلويات', image: 'https://images.unsplash.com/photo-1582043242073-20ef14475885?auto=format&fit=crop&q=80&w=200' },
-      { name: 'شكولاطة', image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&q=80&w=200' },
-      { name: 'شيبس', image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&q=80&w=200' }
+      { name: 'البسكويت', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj23eNZRZ6P2r0KXXu8oOppNY4l-24R2zDyfS0zQke0pIHZyXoa7zW6LGtnMNqJE3w2Jp-K-Kp_VQppG3pD78Ii1lIzHBzJpWKHu7OWIDSEIHNtyFnsD3ISb9Po5WsQqhWmWC46veaKcaTQImtB2bWtrx7WSNXDB5a2JM6T5rqHEjLFije62W5qjvdTAZg/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'حلويات', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjI5ckNwxYPOrPSDVWd2PKb73jQcNs-f4Bvzz8RE0yeT9qc6Cu1T3m2k_9kHoq8qdM4EopvxJcvTGHfSgOaOml2wthxKzbHyqdg0xEPcrKAQ_FwnAbHjtmmFSAQX1uutERZu2ngiplL1H1-G4ze6OAAYHdYUmN-09emv0X_w_cyAHZgHABnbTXre2sAps/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'شكولاطة', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjD6pwgDYpcRRzoUV9WFhyphenhyphen9KNCAxOBl8nbdaAbBwO_LjgwCc9QDkf1aj8W9Jk6vjoaWro2-OXM8YpJI-NCg5IFba8UkkZy3oZjnNprece9WIX0qi7p8GADDnv3VIbaOSdhmB1p7u8UyUivvgUHcZzxOdggYlc4Def3SN5MS3fMbrvqawHTG2joUY78Vtgg/w400-h201/Eddahani-Cat19-Recovered.png' },
+      { name: 'شيبس', image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuOLJAPpbCluyc94BpihahlcuAw-KqTroHXt2VvfLg_58Vzcm1UQwQUZOtI_K7UJiOwKT01oJD0WY3zqhrG-lzE7LAq7teUfHSNGq-Pht5MvrZ5GDOLYBO-ULnm36SAzygjrbk7Di1PJOHfH29tCefdDVAg0T7gTrCq10c7EDAeFetVZiE7VVFzgziHPA/w400-h201/Eddahani-Cat19-Recovered.png' }
     ]
   },
   {
@@ -484,6 +487,7 @@ const BottomNavBar = ({ activeScreen, setScreen, cartCount }: { activeScreen: Sc
 
 const HomeScreen = ({ 
   onProductClick, 
+  onQuickView,
   onAddToCart, 
   onCategoryClick, 
   onBannerClick, 
@@ -496,6 +500,7 @@ const HomeScreen = ({
   onBrandClick
 }: { 
   onProductClick: (p: Product) => void, 
+  onQuickView: (p: Product) => void,
   onAddToCart: (id: string, q: number) => void, 
   onCategoryClick: (catName: string) => void, 
   onBannerClick: (catName: string) => void, 
@@ -718,7 +723,7 @@ const HomeScreen = ({
               key={product.id}
               className="bg-surface-container rounded-[2rem] p-4 shadow-sm group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-primary/10"
             >
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4 group/card">
                 <img 
                   className={cn(
                     "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
@@ -728,6 +733,15 @@ const HomeScreen = ({
                   alt={product.name}
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); onQuickView(product); }}
+                    className="bg-white text-primary p-3 rounded-full shadow-lg hover:scale-110 transition-transform"
+                    title="نظرة سريعة"
+                  >
+                    <Maximize2 size={20} />
+                  </button>
+                </div>
                 <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">
                   الحد الأدنى: {product.moq}
                 </div>
@@ -800,6 +814,7 @@ const BrandProductsScreen = ({
   brand, 
   products, 
   onProductClick, 
+  onQuickView,
   onAddToCart,
   currencyMode,
   onBack
@@ -807,6 +822,7 @@ const BrandProductsScreen = ({
   brand: BrandLogo, 
   products: Product[], 
   onProductClick: (p: Product) => void, 
+  onQuickView: (p: Product) => void,
   onAddToCart: (id: string, q: number) => void,
   currencyMode: CurrencyMode,
   onBack: () => void,
@@ -843,7 +859,7 @@ const BrandProductsScreen = ({
               key={product.id}
               className="bg-surface-container rounded-[2rem] p-4 shadow-sm group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-primary/10"
             >
-                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4 group/card">
                   <img 
                     className={cn(
                       "w-full h-full object-cover group-hover:scale-110 transition-transform duration-700",
@@ -853,6 +869,15 @@ const BrandProductsScreen = ({
                     alt={product.name}
                     referrerPolicy="no-referrer"
                   />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); onQuickView(product); }}
+                      className="bg-white text-primary p-3 rounded-full shadow-lg hover:scale-110 transition-transform"
+                      title="نظرة سريعة"
+                    >
+                      <Maximize2 size={20} />
+                    </button>
+                  </div>
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-sm">
                     الحد الأدنى: {product.moq}
                   </div>
@@ -905,6 +930,7 @@ const CategoriesScreen = ({
   categories, 
   products, 
   onProductClick, 
+  onQuickView,
   onAddToCart,
   initialCategoryName,
   currencyMode
@@ -912,6 +938,7 @@ const CategoriesScreen = ({
   categories: Category[], 
   products: Product[], 
   onProductClick: (p: Product) => void, 
+  onQuickView: (p: Product) => void,
   onAddToCart: (id: string, q: number) => void,
   initialCategoryName?: string,
   currencyMode: CurrencyMode,
@@ -948,13 +975,22 @@ const CategoriesScreen = ({
               key={product.id}
               className="bg-surface-container rounded-[2rem] p-4 shadow-sm group transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-transparent hover:border-primary/10"
             >
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4">
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-low mb-4 group/card">
                 <img 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                   src={product.image} 
                   alt={product.name}
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); onQuickView(product); }}
+                    className="bg-white text-primary p-3 rounded-full shadow-lg hover:scale-110 transition-transform"
+                    title="نظرة سريعة"
+                  >
+                    <Maximize2 size={20} />
+                  </button>
+                </div>
               </div>
               <div className="space-y-4">
                 <div className="space-y-1">
@@ -1174,7 +1210,10 @@ const AdminScreen = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'slider' | 'middleBanners' | 'brands' | 'settings'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'categories' | 'slider' | 'middleBanners' | 'brands' | 'bestSellers' | 'settings'>('products');
+  const [selectedProductIds, setSelectedProductIds] = useState<string[]>([]);
+  const [bulkAction, setBulkAction] = useState<'availability' | 'price' | 'category' | 'moq' | null>(null);
+  const [bulkValue, setBulkValue] = useState<any>(null);
   
   // Form States
   const [editingProduct, setEditingProduct] = useState<Partial<Product> | null>(null);
@@ -1258,6 +1297,51 @@ const AdminScreen = ({
     setEditingBrand(null);
   };
 
+  const handleBulkUpdate = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bulkAction || selectedProductIds.length === 0) return;
+
+    setProducts(prev => prev.map(p => {
+      if (selectedProductIds.includes(p.id)) {
+        switch (bulkAction) {
+          case 'availability':
+            return { ...p, isAvailable: bulkValue === 'true' };
+          case 'price':
+            const adjustment = parseFloat(bulkValue);
+            if (isNaN(adjustment)) return p;
+            return { ...p, price: p.price + adjustment };
+          case 'moq':
+            const newMoq = parseInt(bulkValue);
+            if (isNaN(newMoq)) return p;
+            return { ...p, moq: newMoq };
+          case 'category':
+            return { ...p, category: bulkValue, subcategory: '' };
+          default:
+            return p;
+        }
+      }
+      return p;
+    }));
+
+    setBulkAction(null);
+    setBulkValue(null);
+    setSelectedProductIds([]);
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedProductIds.length === products.length) {
+      setSelectedProductIds([]);
+    } else {
+      setSelectedProductIds(products.map(p => p.id));
+    }
+  };
+
+  const toggleSelectProduct = (id: string) => {
+    setSelectedProductIds(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
   if (!isAuthenticated) {
     return (
       <motion.div 
@@ -1332,6 +1416,7 @@ const AdminScreen = ({
       <div className="flex gap-8 border-b border-surface-container-high overflow-x-auto pb-2 no-scrollbar">
         {[
           { id: 'products', label: 'المنتجات' },
+          { id: 'bestSellers', label: 'الأكثر مبيعاً' },
           { id: 'categories', label: 'الفئات' },
           { id: 'slider', label: 'السلايدر العلوي' },
           { id: 'middleBanners', label: 'البنرات الوسطى' },
@@ -1354,40 +1439,198 @@ const AdminScreen = ({
       {/* Tab Content */}
       <div className="space-y-8">
         {activeTab === 'products' && (
-          <div className="grid grid-cols-1 gap-4">
-            {products.map(p => (
-              <div key={p.id} className="bg-surface-container p-4 rounded-2xl flex items-center justify-between group hover:shadow-md transition-all">
-                <div className="flex items-center gap-6">
-                  <img src={p.image} className="w-16 h-16 rounded-xl object-cover bg-surface-container-low" referrerPolicy="no-referrer" />
-                  <div>
-                    <h4 className="font-bold text-on-surface">{p.name}</h4>
-                    <p className="text-xs text-on-surface-variant">{p.category} {p.subcategory && `> ${p.subcategory}`} • {p.sku}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      {p.isHotSale && <span className="bg-red-100 text-red-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Hot</span>}
-                      {p.isFeatured && <span className="bg-blue-100 text-blue-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Featured</span>}
-                      {p.isAvailable === false ? 
-                        <span className="bg-slate-200 text-slate-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Unavailable</span> :
-                        <span className="bg-green-100 text-green-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Available</span>
+          <div className="space-y-6">
+            {/* Bulk Actions Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-surface-container rounded-3xl animate-in fade-in slide-in-from-top-4">
+              <div className="flex items-center gap-4">
+                <input 
+                  type="checkbox" 
+                  checked={selectedProductIds.length === products.length && products.length > 0}
+                  onChange={toggleSelectAll}
+                  className="w-5 h-5 rounded text-primary focus:ring-primary cursor-pointer"
+                />
+                <span className="font-bold text-on-surface">
+                  تم تحديد {selectedProductIds.length} منتج
+                </span>
+                {selectedProductIds.length > 0 && (
+                  <button 
+                    onClick={() => setSelectedProductIds([])}
+                    className="text-xs text-primary font-bold hover:underline"
+                  >
+                    إلغاء التحديد
+                  </button>
+                )}
+              </div>
+              
+              {selectedProductIds.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <select 
+                    value={bulkAction || ""}
+                    onChange={(e) => {
+                      setBulkAction(e.target.value as any);
+                      setBulkValue(null);
+                    }}
+                    className="bg-surface-container-high border-none rounded-xl px-4 py-2 text-sm font-bold outline-none"
+                  >
+                    <option value="">اختر إجراءً جماعياً...</option>
+                    <option value="availability">تعديل التوفر</option>
+                    <option value="price">تغيير السعر (إضافة/خصم)</option>
+                    <option value="moq">تعديل الحد الأدنى (MOQ)</option>
+                    <option value="category">نقل إلى فئة جديدة</option>
+                  </select>
+
+                  {bulkAction === 'availability' && (
+                    <select 
+                      onChange={(e) => setBulkValue(e.target.value)}
+                      className="bg-surface-container-high border-none rounded-xl px-4 py-2 text-sm outline-none"
+                    >
+                      <option value="">اختر الحالة...</option>
+                      <option value="true">متوفر (Available)</option>
+                      <option value="false">غير متوفر (Unavailable)</option>
+                    </select>
+                  )}
+
+                  {bulkAction === 'price' && (
+                    <input 
+                      type="number"
+                      placeholder="القيمة (مثال: +10 أو -5)"
+                      onChange={(e) => setBulkValue(e.target.value)}
+                      className="bg-surface-container-high border-none rounded-xl px-4 py-2 text-sm outline-none w-32"
+                    />
+                  )}
+
+                  {bulkAction === 'moq' && (
+                    <input 
+                      type="number"
+                      placeholder="الحد الجديد"
+                      onChange={(e) => setBulkValue(e.target.value)}
+                      className="bg-surface-container-high border-none rounded-xl px-4 py-2 text-sm outline-none w-32"
+                    />
+                  )}
+
+                  {bulkAction === 'category' && (
+                    <select 
+                      onChange={(e) => setBulkValue(e.target.value)}
+                      className="bg-surface-container-high border-none rounded-xl px-4 py-2 text-sm outline-none"
+                    >
+                      <option value="">اختر الفئة...</option>
+                      {categories.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
+                    </select>
+                  )}
+
+                  <button 
+                    disabled={!bulkAction || bulkValue === null}
+                    onClick={handleBulkUpdate}
+                    className="bg-primary text-white px-4 py-2 rounded-xl text-sm font-bold disabled:opacity-50"
+                  >
+                    تطبيق
+                  </button>
+                  
+                  <button 
+                    onClick={() => {
+                      if (confirm(`هل أنت متأكد من حذف ${selectedProductIds.length} منتج؟`)) {
+                        setProducts(prev => prev.filter(p => !selectedProductIds.includes(p.id)));
+                        setSelectedProductIds([]);
                       }
+                    }}
+                    className="bg-red-500 text-white px-4 py-2 rounded-xl text-sm font-bold"
+                  >
+                    حذف المختار
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 gap-4">
+              {products.map(p => (
+                <div key={p.id} className="bg-surface-container p-4 rounded-2xl flex items-center justify-between group hover:shadow-md transition-all">
+                  <div className="flex items-center gap-4">
+                    <input 
+                      type="checkbox" 
+                      checked={selectedProductIds.includes(p.id)}
+                      onChange={() => toggleSelectProduct(p.id)}
+                      className="w-5 h-5 rounded text-primary focus:ring-primary cursor-pointer"
+                    />
+                    <div className="flex items-center gap-6">
+                      <img src={p.image} className="w-16 h-16 rounded-xl object-cover bg-surface-container-low" referrerPolicy="no-referrer" />
+                      <div>
+                        <h4 className="font-bold text-on-surface">{p.name}</h4>
+                        <p className="text-xs text-on-surface-variant">{p.category} {p.subcategory && `> ${p.subcategory}`} • {p.sku}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          {p.isHotSale && <span className="bg-red-100 text-red-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Hot</span>}
+                          {p.isFeatured && <span className="bg-blue-100 text-blue-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Featured</span>}
+                          {p.isBestSeller && <span className="bg-amber-100 text-amber-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Best Seller</span>}
+                          {p.isAvailable === false ? 
+                            <span className="bg-slate-200 text-slate-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Unavailable</span> :
+                            <span className="bg-green-100 text-green-600 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Available</span>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-6">
+                    <div className="text-right">
+                      <p className="font-black text-primary">{formatPrice(p.price, currencyMode)}</p>
+                      <p className="text-[10px] text-on-surface-variant uppercase">MOQ: {p.moq}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button onClick={() => setEditingProduct(p)} className="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+                        <Settings size={18} />
+                      </button>
+                      <button onClick={() => setProducts(products.filter(item => item.id !== p.id))} className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-colors">
+                        <Trash2 size={18} />
+                      </button>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div className="text-right">
-                    <p className="font-black text-primary">{formatPrice(p.price, currencyMode)}</p>
-                    <p className="text-[10px] text-on-surface-variant uppercase">MOQ: {p.moq}</p>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'bestSellers' && (
+          <div className="space-y-6">
+            <div className="bg-amber-50 border border-amber-100 p-6 rounded-3xl flex items-center gap-4">
+              <div className="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600">
+                <TrendingUp size={24} />
+              </div>
+              <div>
+                <h4 className="font-black text-amber-900">إدارة الأكثر مبيعاً</h4>
+                <p className="text-sm text-amber-700">المنتجات التي تظهر هنا هي التي تم تحديدها كـ "الأكثر مبيعاً" في إعدادات المنتج.</p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 gap-4">
+              {products.filter(p => p.isBestSeller).map(p => (
+                <div key={p.id} className="bg-surface-container p-4 rounded-2xl flex items-center justify-between group hover:shadow-md transition-all">
+                  <div className="flex items-center gap-6">
+                    <img src={p.image} className="w-16 h-16 rounded-xl object-cover bg-surface-container-low" referrerPolicy="no-referrer" />
+                    <div>
+                      <h4 className="font-bold text-on-surface">{p.name}</h4>
+                      <p className="text-xs text-on-surface-variant">{p.category} • {p.sku}</p>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex items-center gap-6">
+                    <button 
+                      onClick={() => setProducts(products.map(item => item.id === p.id ? { ...item, isBestSeller: false } : item))}
+                      className="text-xs font-bold text-red-500 hover:underline"
+                    >
+                      إزالة من الأكثر مبيعاً
+                    </button>
                     <button onClick={() => setEditingProduct(p)} className="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
                       <Settings size={18} />
                     </button>
-                    <button onClick={() => setProducts(products.filter(item => item.id !== p.id))} className="p-2 rounded-full hover:bg-red-50 text-red-500 transition-colors">
-                      <Trash2 size={18} />
-                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+              {products.filter(p => p.isBestSeller).length === 0 && (
+                <div className="text-center py-20 bg-surface-container rounded-[3rem] border-2 border-dashed border-surface-container-high">
+                  <TrendingUp size={48} className="mx-auto text-on-surface-variant opacity-20 mb-4" />
+                  <p className="text-on-surface-variant font-bold">لا توجد منتجات في قسم الأكثر مبيعاً حالياً</p>
+                  <p className="text-xs text-on-surface-variant mt-2">يمكنك إضافة منتجات من خلال تعديل المنتج وتفعيل خيار "الأكثر مبيعاً"</p>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
@@ -1595,6 +1838,16 @@ const AdminScreen = ({
                       className="w-5 h-5 rounded text-primary focus:ring-primary"
                     />
                     <label htmlFor="isFeatured" className="font-bold text-on-surface">عرض في المنتجات المختارة على الصفحة الرئيسية</label>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <input 
+                      type="checkbox" 
+                      id="isBestSeller"
+                      checked={editingProduct.isBestSeller} 
+                      onChange={e => setEditingProduct({...editingProduct, isBestSeller: e.target.checked})}
+                      className="w-5 h-5 rounded text-primary focus:ring-primary"
+                    />
+                    <label htmlFor="isBestSeller" className="font-bold text-on-surface">إضافة إلى قسم "الأكثر مبيعاً"</label>
                   </div>
                   <div className="flex items-center gap-3">
                     <input 
@@ -1830,6 +2083,110 @@ const AdminScreen = ({
   );
 };
 
+const QuickViewModal = ({ product, onClose, onAddToCart, currencyMode }: { 
+  product: Product, 
+  onClose: () => void, 
+  onAddToCart: (id: string, q: number) => void,
+  currencyMode: CurrencyMode 
+}) => {
+  const [qty, setQty] = useState(product.moq);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        className="bg-white w-full max-w-4xl rounded-[3rem] overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]"
+      >
+        <button 
+          onClick={onClose}
+          className="absolute top-6 right-6 z-10 w-12 h-12 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg text-on-surface hover:text-primary transition-colors"
+        >
+          <X size={24} />
+        </button>
+
+        <div className="w-full md:w-1/2 aspect-square md:aspect-auto h-64 md:h-auto bg-surface-container-low overflow-hidden">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-full object-cover" 
+            referrerPolicy="no-referrer"
+          />
+        </div>
+
+        <div className="flex-1 p-8 md:p-12 overflow-y-auto no-scrollbar space-y-8">
+          <div>
+            <span className="text-primary font-bold tracking-widest text-[10px] uppercase">نظرة سريعة</span>
+            <h2 className="font-headline text-3xl font-extrabold text-on-surface leading-tight mt-1">{product.name}</h2>
+            <div className="flex items-center gap-2 mt-4">
+              <span className="text-3xl font-black text-primary">{formatPrice(product.price, currencyMode)}</span>
+              <span className="text-sm line-through text-on-surface-variant/60">{formatPrice(product.originalPrice, currencyMode)}</span>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-surface-container rounded-2xl">
+              <div>
+                <p className="text-xs font-bold text-on-surface-variant uppercase">الحد الأدنى للطلب</p>
+                <p className="font-extrabold text-on-surface">{product.moq} وحدة</p>
+              </div>
+              <div className="flex items-center bg-white rounded-full p-1 border border-surface-container-high">
+                <button 
+                  onClick={() => setQty(Math.max(product.moq, qty - 1))}
+                  className="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary"
+                >
+                  <Minus size={18} />
+                </button>
+                <input 
+                  className="w-12 bg-transparent border-none text-center font-bold focus:ring-0" 
+                  type="number" 
+                  value={qty}
+                  readOnly
+                />
+                <button 
+                  onClick={() => setQty(qty + 1)}
+                  className="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary"
+                >
+                  <Plus size={18} />
+                </button>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-surface-container p-4 rounded-2xl">
+                <p className="text-[10px] font-bold text-on-surface-variant uppercase">الحالة</p>
+                <p className={cn("font-bold", product.isAvailable === false ? "text-red-500" : "text-green-500")}>
+                  {product.isAvailable === false ? 'غير متوفر' : 'متوفر'}
+                </p>
+              </div>
+              <div className="bg-surface-container p-4 rounded-2xl">
+                <p className="text-[10px] font-bold text-on-surface-variant uppercase">الرمز (SKU)</p>
+                <p className="font-bold text-on-surface">{product.sku}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-4 space-y-4">
+            <button 
+              disabled={product.isAvailable === false}
+              onClick={() => { onAddToCart(product.id, qty); onClose(); }}
+              className={cn(
+                "w-full editorial-gradient text-white py-5 rounded-2xl font-black text-lg shadow-xl shadow-primary/20 flex items-center justify-center gap-3 active:scale-95 transition-all",
+                product.isAvailable === false && "grayscale opacity-50 cursor-not-allowed shadow-none"
+              )}
+            >
+              <ShoppingCart size={22} fill="currentColor" />
+              أضف إلى السلة
+            </button>
+            <p className="text-center text-xs text-on-surface-variant font-medium">سعر الإجمالي: {formatPrice(product.price * qty, currencyMode)}</p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
 const ProductDetailScreen = ({ product, onBack, onAddToCart, products, onProductClick, currencyMode }: { 
   product: Product, 
   onBack: () => void, 
@@ -1843,7 +2200,7 @@ const ProductDetailScreen = ({ product, onBack, onAddToCart, products, onProduct
 
   const relatedProducts = products
     .filter(p => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+    .slice(0, 10);
 
   return (
     <motion.div 
@@ -1954,32 +2311,6 @@ const ProductDetailScreen = ({ product, onBack, onAddToCart, products, onProduct
             </button>
           </div>
         </div>
-
-        {/* Tabs */}
-        <div className="space-y-6">
-          <div className="flex gap-8 border-b border-surface-container-high overflow-x-auto pb-2 no-scrollbar">
-            <button className="text-primary font-bold border-b-2 border-primary pb-2 whitespace-nowrap">الوصف</button>
-            <button className="text-on-surface-variant font-medium pb-2 whitespace-nowrap">المواصفات</button>
-            <button className="text-on-surface-variant font-medium pb-2 whitespace-nowrap">الشحن بالجملة</button>
-          </div>
-          <div className="text-on-surface-variant leading-relaxed">
-            <p className="mb-4">
-              مصمم للقوى العاملة الصناعية الحديثة. يجمع بين الراحة عالية الأداء والمتانة الصناعية، ويمثل هذا الطراز قمة أحذية السلامة الرياضية للشركات.
-            </p>
-            <ul className="space-y-3">
-              {[
-                "شبكة مسامية معززة مع مقاومة للتآكل مزدوجة الطبقات.",
-                "نعل خارجي مقاوم للزيت ومضاد للانزلاق للبيئات الخطرة.",
-                "نعل أوسط عالي الارتداد يوفر عودة الطاقة لفترات العمل الطويلة."
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <CheckCircle2 size={18} className="text-primary mt-1 flex-shrink-0" />
-                  <span className="text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </section>
 
       {/* Related Products */}
@@ -1989,7 +2320,7 @@ const ProductDetailScreen = ({ product, onBack, onAddToCart, products, onProduct
             <div className="w-2 h-8 bg-primary rounded-full" />
             <h3 className="text-2xl font-black font-headline tracking-tight text-on-surface">منتجات ذات صلة</h3>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {relatedProducts.map((p) => (
               <div 
                 key={p.id}
@@ -2205,6 +2536,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [initialCategory, setInitialCategory] = useState<string | undefined>(undefined);
   const [selectedBrandId, setSelectedBrandId] = useState<number | null>(null);
   
@@ -2334,17 +2666,31 @@ export default function App() {
                         .filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.category.toLowerCase().includes(searchQuery.toLowerCase()))
                         .slice(0, 5)
                         .map(p => (
-                          <button 
+                          <div 
                             key={p.id}
-                            onClick={() => { handleProductClick(p); setIsMenuOpen(false); setSearchQuery(''); }}
-                            className="flex items-center justify-end gap-3 p-2 rounded-xl hover:bg-slate-50 transition-all text-right"
+                            className="flex items-center justify-end gap-3 p-2 rounded-xl hover:bg-slate-50 transition-all text-right group"
                           >
-                            <div className="flex-grow">
+                            <div className="flex gap-2">
+                              <button 
+                                onClick={() => { setQuickViewProduct(p); setIsMenuOpen(false); setSearchQuery(''); }}
+                                className="p-2 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
+                                title="نظرة سريعة"
+                              >
+                                <Maximize2 size={16} />
+                              </button>
+                              <button 
+                                onClick={() => { handleProductClick(p); setIsMenuOpen(false); setSearchQuery(''); }}
+                                className="p-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 transition-colors"
+                              >
+                                <Eye size={16} />
+                              </button>
+                            </div>
+                            <div className="flex-grow cursor-pointer text-right" onClick={() => { handleProductClick(p); setIsMenuOpen(false); setSearchQuery(''); }}>
                               <h4 className="text-sm font-bold text-on-surface line-clamp-1">{p.name}</h4>
                               <p className="text-[10px] text-primary font-black">{formatPrice(p.price, currencyMode)}</p>
                             </div>
-                            <img src={p.image} alt="" className="w-12 h-12 rounded-lg object-cover" referrerPolicy="no-referrer" />
-                          </button>
+                            <img src={p.image} alt="" className="w-12 h-12 rounded-lg object-cover cursor-pointer" referrerPolicy="no-referrer" onClick={() => { handleProductClick(p); setIsMenuOpen(false); setSearchQuery(''); }} />
+                          </div>
                         ))
                       }
                       {products.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
@@ -2427,6 +2773,7 @@ export default function App() {
             <HomeScreen 
               key="home" 
               onProductClick={handleProductClick} 
+              onQuickView={setQuickViewProduct}
               onAddToCart={handleAddToCart}
               onCategoryClick={handleCategoryClick}
               onBannerClick={handleBannerClick}
@@ -2445,6 +2792,7 @@ export default function App() {
               brand={brandLogos.find(b => b.id === selectedBrandId)!}
               products={products}
               onProductClick={handleProductClick}
+              onQuickView={setQuickViewProduct}
               onAddToCart={handleAddToCart}
               currencyMode={currencyMode}
               onBack={() => setScreen('home')}
@@ -2456,6 +2804,7 @@ export default function App() {
               categories={categories}
               products={products}
               onProductClick={handleProductClick}
+              onQuickView={setQuickViewProduct}
               onAddToCart={handleAddToCart}
               initialCategoryName={initialCategory}
               currencyMode={currencyMode}
@@ -2489,6 +2838,17 @@ export default function App() {
               setMiddleBanners={setMiddleBanners}
               setBrandLogos={setBrandLogos}
               setSettings={setSettings}
+              currencyMode={currencyMode}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {quickViewProduct && (
+            <QuickViewModal 
+              product={quickViewProduct} 
+              onClose={() => setQuickViewProduct(null)} 
+              onAddToCart={handleAddToCart}
               currencyMode={currencyMode}
             />
           )}
